@@ -5,7 +5,7 @@ require "ruby/wc/input_parser"
 
 class Ruby::TestInputParser < Minitest::Test
   def test_it_parses_the_c_flag
-    skip "todo"
+    assert_equal InputParser.parse('-c test.txt'), { flag: '-c', filename: 'test.txt' }
   end
 
   def test_it_parses_the_l_flag
