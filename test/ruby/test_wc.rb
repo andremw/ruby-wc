@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "ruby/wc"
 
 class Ruby::TestInputParser < Minitest::Test
   def test_it_counts_bytes_in_a_file
-    skip "todo"
+    assert_equal 342190, Wc.run(["-c", "test.txt"])
   end
 
   def test_it_counts_lines_in_a_file

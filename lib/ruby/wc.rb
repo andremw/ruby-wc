@@ -2,9 +2,13 @@
 
 require_relative "wc/version"
 
-module Ruby
-  module Wc
-    class Error < StandardError; end
-    # Your code goes here...
+module Wc
+  def self.run(argv)
+    case argv
+    in ["-c", filename]
+      content = File.read(filename)
+      content.bytesize
+    end
   end
 end
+
