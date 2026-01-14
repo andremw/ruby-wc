@@ -8,6 +8,9 @@ module Wc
     in ["-c", filename]
       content = File.read(filename)
       content.bytesize
+    in ["-l", filename]
+      content = File.read(filename)
+      content.split("\n").length
     end
   end
 end

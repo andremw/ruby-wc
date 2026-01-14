@@ -9,7 +9,7 @@ class Ruby::TestInputParser < Minitest::Test
   end
 
   def test_it_counts_lines_in_a_file
-    skip "todo"
+    assert_equal 7145, Wc.run(["-l", "test.txt"])
   end
 
   def test_it_counts_words_in_a_file
