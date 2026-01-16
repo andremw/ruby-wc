@@ -13,7 +13,7 @@ class Ruby::TestInputParser < Minitest::Test
   end
 
   def test_it_counts_words_in_a_file
-    skip "todo"
+    assert_equal 58164, Wc.run(["-w", "test.txt"])
   end
 
   def test_it_counts_characters_in_a_file

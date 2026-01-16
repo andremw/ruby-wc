@@ -11,6 +11,9 @@ module Wc
     in ["-l", filename]
       content = File.read(filename)
       content.split("\n").length
+    in ["-w", filename]
+      content = File.read(filename)
+      content.split(" ").length
     end
   end
 end
