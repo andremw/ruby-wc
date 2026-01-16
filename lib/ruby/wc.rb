@@ -14,6 +14,9 @@ module Wc
     in ["-w", filename]
       content = File.read(filename)
       content.split(" ").length
+    in ["-m", filename]
+      content = File.read(filename)
+      content.split("").length
     end
   end
 end
