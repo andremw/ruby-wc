@@ -25,6 +25,7 @@ class Ruby::TestInputParser < Minitest::Test
   end
 
   def test_it_counts_bytes_lines_and_words_in_a_file_if_no_flag_is_passed
-    skip "todo"
+    exp = { bytes: 342190, lines: 7145, words: 58164 }
+    assert_equal exp, Wc.run(["test.txt"])
   end
 end

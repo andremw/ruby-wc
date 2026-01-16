@@ -17,6 +17,13 @@ module Wc
     in ["-m", filename]
       content = File.read(filename)
       { characters: content.split("").length }
+    in [filename]
+      content = File.read(filename)
+      {
+        bytes: content.bytesize,
+        lines: content.split("\n").length,
+        words: content.split(" ").length,
+      }
     end
   end
 end
