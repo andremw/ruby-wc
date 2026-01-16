@@ -6,23 +6,42 @@ module Wc
   def self.run(argv)
     case argv
     in ["-c", filename]
-      content = File.read(filename)
-      { bytes: content.bytesize }
+      bytes = 0
+      File.foreach(filename) do |line|
+        bytes += line.bytesize
+      end
+      { bytes: }
     in ["-l", filename]
-      content = File.read(filename)
-      { lines: content.split("\n").length }
+      lines = 0
+      File.foreach(filename) do |line|
+        lines += 1
+      end
+      { lines: }
     in ["-w", filename]
-      content = File.read(filename)
-      { words: content.split(" ").length }
+      words = 0
+      File.foreach(filename) do |line|
+        words += line.split(" ").length
+      end
+      { words: }
     in ["-m", filename]
-      content = File.read(filename)
-      { characters: content.split("").length }
+      characters = 0
+      File.foreach(filename) do |line|
+        characters += line.split("").length
+      end
+      { characters: }
     in [filename]
-      content = File.read(filename)
+      bytes = 0
+      lines = 0
+      words = 0
+      File.foreach(filename) do |line|
+        bytes += line.bytesize
+        lines += 1
+        words += line.split(" ").length
+      end
       {
-        bytes: content.bytesize,
-        lines: content.split("\n").length,
-        words: content.split(" ").length,
+        bytes:,
+        lines:,
+        words:,
       }
     end
   end
