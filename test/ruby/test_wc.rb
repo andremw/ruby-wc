@@ -5,19 +5,23 @@ require "ruby/wc"
 
 class Ruby::TestInputParser < Minitest::Test
   def test_it_counts_bytes_in_a_file
-    assert_equal 342190, Wc.run(["-c", "test.txt"])
+    exp = { bytes: 342190 }
+    assert_equal exp, Wc.run(["-c", "test.txt"])
   end
 
   def test_it_counts_lines_in_a_file
-    assert_equal 7145, Wc.run(["-l", "test.txt"])
+    exp = { lines: 7145 }
+    assert_equal exp, Wc.run(["-l", "test.txt"])
   end
 
   def test_it_counts_words_in_a_file
-    assert_equal 58164, Wc.run(["-w", "test.txt"])
+    exp = { words: 58164 }
+    assert_equal exp, Wc.run(["-w", "test.txt"])
   end
 
   def test_it_counts_characters_in_a_file
-    assert_equal 339292, Wc.run(["-m", "test.txt"])
+    exp = { characters: 339292 }
+    assert_equal exp, Wc.run(["-m", "test.txt"])
   end
 
   def test_it_counts_bytes_lines_and_words_in_a_file_if_no_flag_is_passed

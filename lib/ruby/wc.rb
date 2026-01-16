@@ -7,16 +7,16 @@ module Wc
     case argv
     in ["-c", filename]
       content = File.read(filename)
-      content.bytesize
+      { bytes: content.bytesize }
     in ["-l", filename]
       content = File.read(filename)
-      content.split("\n").length
+      { lines: content.split("\n").length }
     in ["-w", filename]
       content = File.read(filename)
-      content.split(" ").length
+      { words: content.split(" ").length }
     in ["-m", filename]
       content = File.read(filename)
-      content.split("").length
+      { characters: content.split("").length }
     end
   end
 end
