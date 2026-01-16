@@ -28,4 +28,8 @@ class Ruby::TestInputParser < Minitest::Test
     exp = { bytes: 342190, lines: 7145, words: 58164 }
     assert_equal exp, Wc.run(["test.txt"])
   end
+
+  def test_it_accepts_the_valid_flags_in_any_order
+    skip "todo"
+  end
 end
