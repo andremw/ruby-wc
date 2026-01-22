@@ -6,13 +6,9 @@ module Wc
   def self.run(argv, source=$stdin)
     case argv
     in ["-c"]
-      { bytes: count_bytes(source) }
+      source.reduce({ bytes: 0 }, &Wc.method(:count_bytes))
     in ["-c", filename]
-      { bytes:
-        File.open(filename) do |file|
-          Wc.count_bytes(file)
-        end
-      }
+      File.open(filename).reduce({ bytes: 0 }, &Wc.method(:count_bytes))
     in ["-l"]
       { lines: count_lines(source) }
     in ["-l", filename]
@@ -54,12 +50,8 @@ module Wc
     end
   end
 
-  def self.count_bytes(source)
-    bytes = 0
-    source.each do |line|
-      bytes += line.bytesize
-    end
-    bytes
+  def self.count_bytes(acc, line)
+    acc.merge({ bytes: acc[:bytes] + line.bytesize })
   end
 
   def self.count_lines(source)
