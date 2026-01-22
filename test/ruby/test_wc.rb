@@ -50,6 +50,13 @@ class Ruby::TestInputParser < Minitest::Test
     assert_equal exp, Wc.run(["-w"], fake_stdin)
   end
 
+  def test_it_counts_characters_from_stdin
+    fake_stdin = StringIO.new("hello world")
+
+    exp = { characters: 11 }
+    assert_equal exp, Wc.run(["-m"], fake_stdin)
+  end
+
   def test_it_accepts_the_valid_flags_in_any_order
     skip "todo"
   end
