@@ -21,12 +21,14 @@ module Wc
           Wc.count_lines(file)
         end
       }
+    in ["-w"]
+      { words: count_words(source) }
     in ["-w", filename]
-      words = 0
-      File.foreach(filename, encoding: "UTF-8") do |line|
-        words += line.split(" ").length
-      end
-      { words: }
+      { words:
+        File.open(filename, encoding: "UTF-8") do |file|
+          Wc.count_words(file)
+        end
+      }
     in ["-m", filename]
       characters = 0
       File.foreach(filename, encoding: "UTF-8") do |line|
@@ -64,6 +66,14 @@ module Wc
       lines += 1
     end
     lines
+  end
+
+  def self.count_words(source)
+    words = 0
+    source.each do |line|
+      words += line.split(" ").length
+    end
+    words
   end
 end
 
