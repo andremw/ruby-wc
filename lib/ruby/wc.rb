@@ -19,13 +19,13 @@ module Wc
       { lines: }
     in ["-w", filename]
       words = 0
-      File.foreach(filename) do |line|
+      File.foreach(filename, encoding: "UTF-8") do |line|
         words += line.split(" ").length
       end
       { words: }
     in ["-m", filename]
       characters = 0
-      File.foreach(filename) do |line|
+      File.foreach(filename, encoding: "UTF-8") do |line|
         characters += line.split("").length
       end
       { characters: }
@@ -33,7 +33,7 @@ module Wc
       bytes = 0
       lines = 0
       words = 0
-      File.foreach(filename) do |line|
+      File.foreach(filename, encoding: "UTF-8") do |line|
         bytes += line.bytesize
         lines += 1
         words += line.split(" ").length
