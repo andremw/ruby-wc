@@ -13,12 +13,14 @@ module Wc
           Wc.count_bytes(file)
         end
       }
+    in ["-l"]
+      { lines: count_lines(source) }
     in ["-l", filename]
-      lines = 0
-      File.foreach(filename) do |line|
-        lines += 1
-      end
-      { lines: }
+      { lines:
+        File.open(filename) do |file|
+          Wc.count_lines(file)
+        end
+      }
     in ["-w", filename]
       words = 0
       File.foreach(filename, encoding: "UTF-8") do |line|
@@ -54,6 +56,14 @@ module Wc
       bytes += line.bytesize
     end
     bytes
+  end
+
+  def self.count_lines(source)
+    lines = 0
+    source.each do |line|
+      lines += 1
+    end
+    lines
   end
 end
 
