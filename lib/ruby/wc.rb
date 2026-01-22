@@ -6,11 +6,11 @@ module Wc
   def self.run(argv)
     case argv
     in ["-c", filename]
-      bytes = 0
-      File.foreach(filename) do |line|
-        bytes += line.bytesize
-      end
-      { bytes: }
+      { bytes:
+        File.open(filename) do |file|
+          Wc.count_bytes(file)
+        end
+      }
     in ["-l", filename]
       lines = 0
       File.foreach(filename) do |line|
@@ -44,6 +44,14 @@ module Wc
         words:,
       }
     end
+  end
+
+  def self.count_bytes(source)
+    bytes = 0
+    source.each do |line|
+      bytes += line.bytesize
+    end
+    bytes
   end
 end
 
