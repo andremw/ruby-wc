@@ -29,6 +29,15 @@ class Ruby::TestInputParser < Minitest::Test
     assert_equal exp, Wc.run(["test.txt"])
   end
 
+  def test_it_counts_bytes_from_stdin
+    require 'stringio'
+
+    fake_stdin = StringIO.new("hello world")
+
+    exp = { bytes: 11 }
+    assert_equal exp, Wc.run(["-c"], fake_stdin)
+  end
+
   def test_it_accepts_the_valid_flags_in_any_order
     skip "todo"
   end

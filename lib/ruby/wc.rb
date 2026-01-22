@@ -3,8 +3,10 @@
 require_relative "wc/version"
 
 module Wc
-  def self.run(argv)
+  def self.run(argv, source=$stdin)
     case argv
+    in ["-c"]
+      { bytes: count_bytes(source) }
     in ["-c", filename]
       { bytes:
         File.open(filename) do |file|
