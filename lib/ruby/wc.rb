@@ -10,13 +10,9 @@ module Wc
     in ["-c", filename]
       File.open(filename).reduce({ bytes: 0 }, &Wc.method(:count_bytes))
     in ["-l"]
-      { lines: count_lines(source) }
+      source.reduce({ lines: 0 }, &Wc.method(:count_lines))
     in ["-l", filename]
-      { lines:
-        File.open(filename) do |file|
-          Wc.count_lines(file)
-        end
-      }
+      File.open(filename).reduce({ lines: 0 }, &Wc.method(:count_lines))
     in ["-w"]
       { words: count_words(source) }
     in ["-w", filename]
@@ -54,12 +50,8 @@ module Wc
     acc.merge({ bytes: acc[:bytes] + line.bytesize })
   end
 
-  def self.count_lines(source)
-    lines = 0
-    source.each do |line|
-      lines += 1
-    end
-    lines
+  def self.count_lines(acc, line)
+    acc.merge({ lines: acc[:lines] + 1})
   end
 
   def self.count_words(source)
