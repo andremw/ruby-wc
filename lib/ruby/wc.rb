@@ -22,19 +22,11 @@ module Wc
     in ["-m", filename]
       File.open(filename, encoding: "UTF-8").reduce({ characters: 0 }, &Wc.method(:count_characters))
     in [filename]
-      bytes = 0
-      lines = 0
-      words = 0
-      File.foreach(filename, encoding: "UTF-8") do |line|
-        bytes += line.bytesize
-        lines += 1
-        words += line.split(" ").length
+      File.open(filename, encoding: "UTF-8").reduce({ bytes: 0, lines: 0, words: 0 }) do |acc, line|
+        acc = Wc.count_bytes(acc, line)
+        acc = Wc.count_lines(acc, line)
+        Wc.count_words(acc, line)
       end
-      {
-        bytes:,
-        lines:,
-        words:,
-      }
     end
   end
 
