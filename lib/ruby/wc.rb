@@ -14,13 +14,9 @@ module Wc
     in ["-l", filename]
       File.open(filename).reduce({ lines: 0 }, &Wc.method(:count_lines))
     in ["-w"]
-      { words: count_words(source) }
+      source.reduce({ words: 0 }, &Wc.method(:count_words))
     in ["-w", filename]
-      { words:
-        File.open(filename, encoding: "UTF-8") do |file|
-          Wc.count_words(file)
-        end
-      }
+      File.open(filename, encoding: "UTF-8").reduce({ words: 0 }, &Wc.method(:count_words))
     in ["-m"]
       { characters: count_characters(source) }
     in ["-m", filename]
@@ -54,12 +50,8 @@ module Wc
     acc.merge({ lines: acc[:lines] + 1})
   end
 
-  def self.count_words(source)
-    words = 0
-    source.each do |line|
-      words += line.split(" ").length
-    end
-    words
+  def self.count_words(acc, line)
+    acc.merge({ words: acc[:words] + line.split(" ").length})
   end
 
   def self.count_characters(source)
